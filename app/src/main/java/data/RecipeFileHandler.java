@@ -28,7 +28,7 @@ public class RecipeFileHandler {
     public ArrayList<String> readRecipes() {
         // ArrayList型のrecipesインスタンスを生成
         ArrayList<String> recipes = new ArrayList<>();
-        try(BufferedReader reader = new BufferedReader(new FileReader("recipes.txt"))) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             // 1行ずつ読み込む処理
             String line;
             while((line = reader.readLine()) != null){
@@ -37,7 +37,7 @@ public class RecipeFileHandler {
         } catch (IOException e) {
             System.out.println("Error reading file:" + e.getMessage());
         }
-        return null;
+        return recipes;
     }
 
     /**
@@ -48,9 +48,8 @@ public class RecipeFileHandler {
      * @param recipeName レシピ名
      * @param ingredients 材料名
      */
-     //
     public void addRecipe(String recipeName, String ingredients) {
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter("recipes.txt", true))) {
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(recipeName + "," + ingredients);
             writer.newLine();
         } catch (IOException e) {

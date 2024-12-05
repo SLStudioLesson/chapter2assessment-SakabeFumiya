@@ -62,9 +62,10 @@ public class RecipeUI {
     /**
      * 設問1: 一覧表示機能
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
+     * 読み込んだレシピデータが空の場合は、 No recipes available. というメッセージを出力します。
      */
     private void displayRecipes() {
-        ArrayList<String> recipes = new ArrayList<>();
+        ArrayList<String> recipes = fileHandler.readRecipes();
         // recipesが空かどうかの確認
         if(recipes.isEmpty()){
             System.out.println("No recipes available.");
@@ -74,16 +75,11 @@ public class RecipeUI {
             for(String recipe : recipes){
                 // recipeの間に最大2つの文字列に分割する
                 String[] parts = recipe.split(",", 2);
-                // parts[0]をrecipeNameに代入
-                String recipeName = parts[0];
-                // parts[1]をingredientsに代入
-                String ingredients = parts[1];
-                System.out.println("Recipe Name:" + recipeName);
-                System.out.println("Main Ingredients:" + ingredients);
+                System.out.println("Recipe Name:" + parts[0]);
+                System.out.println("Main Ingredients:" + parts[1]);
                 System.out.println("-----------------------------------");
             }
         }
-
     }
 
     /**
@@ -111,9 +107,9 @@ public class RecipeUI {
      *
      * @throws java.io.IOException 入出力が受け付けられない
      */
-    private void searchRecipe() throws IOException {
+    //private void searchRecipe() throws IOException {
 
-    }
+   // }
 
 }
 
