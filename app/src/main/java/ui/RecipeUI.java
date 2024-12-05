@@ -37,9 +37,11 @@ public class RecipeUI {
                 switch (choice) {
                     case "1":
                         // 設問1: 一覧表示機能
+                        displayRecipes();
                         break;
                     case "2":
                         // 設問2: 新規登録機能
+                        addNewRecipe();
                         break;
                     case "3":
                         // 設問3: 検索機能
@@ -62,6 +64,25 @@ public class RecipeUI {
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
      */
     private void displayRecipes() {
+        ArrayList<String> recipes = new ArrayList<>();
+        // recipesが空かどうかの確認
+        if(recipes.isEmpty()){
+            System.out.println("No recipes available.");
+        }else{
+            System.out.println("Recipes:");
+            System.out.println("-----------------------------------");
+            for(String recipe : recipes){
+                // recipeの間に最大2つの文字列に分割する
+                String[] parts = recipe.split(",", 2);
+                // parts[0]をrecipeNameに代入
+                String recipeName = parts[0];
+                // parts[1]をingredientsに代入
+                String ingredients = parts[1];
+                System.out.println("Recipe Name:" + recipeName);
+                System.out.println("Main Ingredients:" + ingredients);
+                System.out.println("-----------------------------------");
+            }
+        }
 
     }
 
@@ -72,7 +93,16 @@ public class RecipeUI {
      * @throws java.io.IOException 入出力が受け付けられない
      */
     private void addNewRecipe() throws IOException {
-
+        // ユーザーからレシピ名を入力させる
+        System.out.println("Enter recipe name:");
+        String recipeName  = reader.readLine();
+        // ユーザーから材料をカンマ区切りで入力させる
+        System.out.println("Enter main ingredients (comma separated):");
+        String ingredients = reader.readLine();
+        // RecipeFileHandlerを使用してレシピを追加
+        fileHandler.addRecipe(recipeName, ingredients);
+        // 成功メッセージを表示
+        System.out.println("Recipe added successfully.");
     }
 
     /**
